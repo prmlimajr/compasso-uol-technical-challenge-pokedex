@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import Loader from '../../components/Loader';
-import {SafeAreaView, FlatList, Alert} from 'react-native';
+import {SafeAreaView, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import api from '../../services/api';
 import Searchbar from '../../components/Searchbar';
 import PokemonCard from '../../components/PokemonCard';
+import Toast from 'react-native-toast-message';
 import {
   Container,
   TitleAndHeaderText,
@@ -17,16 +18,6 @@ import {
 } from './styles';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-interface Result {
-  name: string;
-  url: string;
-}
-interface PokemonListProps {
-  count: number;
-  next?: string;
-  previous?: string;
-  results: Result[];
-}
 interface PokemonProps {
   name: string;
   url: string;
@@ -46,7 +37,14 @@ export default function Home() {
       setIsLoading(true);
       getPokemons();
     } catch (err) {
-      Alert.alert('Falha na requisição. :(');
+      Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Falha na requisição! :(',
+        text2: 'Tente novamente.',
+        visibilityTime: 4000,
+        autoHide: true,
+      });
     } finally {
       setIsLoading(false);
     }

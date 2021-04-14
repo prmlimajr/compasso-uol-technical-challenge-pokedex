@@ -4,7 +4,7 @@ import {useRoute, useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Container, SearchArea, SearchField} from './styles';
-import {Alert} from 'react-native';
+import Toast from 'react-native-toast-message';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Loader from '../Loader';
 
@@ -38,16 +38,19 @@ export default function Searchbar() {
         url: `https://pokeapi.co/api/v2/pokemon/${search.toLowerCase()}`,
       });
     } catch (err) {
-      Alert.alert('Falha na requisição! :(');
+      Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Falha na requisição! :(',
+        text2: 'Tente novamente.',
+        visibilityTime: 4000,
+        autoHide: true,
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  console.log(
-    search,
-    `https://pokeapi.co/api/v2/pokemon/${search.toLowerCase()}`,
-  );
   return (
     <SafeAreaView>
       {isLoading && <Loader />}

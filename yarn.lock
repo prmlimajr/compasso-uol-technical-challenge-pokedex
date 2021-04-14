@@ -6039,6 +6039,13 @@ react-native-screens@^3.1.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-3.1.0.tgz#3b516528b54ab8108bf230197fa6e65c7c4a062a"
   integrity sha512-2nCwfminzGfM61Py4PID5hJVV4zGhbYD6TIv16Xj6M0MMNWr9esqIlI94NymY7B12SToXMb5duKU/IR5iBCykg==
 
+react-native-toast-message@^1.4.9:
+  version "1.4.9"
+  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-1.4.9.tgz#47f33ac312fe2aee5dbdd4ae14745fa0d354102e"
+  integrity sha512-QhHzzsiymKpHEWz2nUKQjQMRuGN+/a8cOwDXJcz3TQFY03p20f6sJW9JKw3KkMfvWiUhGbApCPpNU6tHaAZ32w==
+  dependencies:
+    prop-types "^15.7.2"
+
 react-native-vector-icons@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-8.1.0.tgz#e8ee2b17bc4d9f636da1c6f67feee8e2a850c3d8"

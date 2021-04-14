@@ -2,7 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Loader from '../../components/Loader';
 import * as Progress from 'react-native-progress';
-import {SafeAreaView, Alert, Text, View} from 'react-native';
+import Toast from 'react-native-toast-message';
+import {SafeAreaView, View} from 'react-native';
 import {useRoute, useNavigation} from '@react-navigation/native';
 import api from '../../services/api';
 import {
@@ -81,7 +82,14 @@ export default function Detail({name, url}: Pokemon) {
 
       setPokemon(response.data);
     } catch (err) {
-      Alert.alert('Falha na requisição! :(');
+      Toast.show({
+        type: 'error',
+        position: 'top',
+        text1: 'Falha na requisição! :(',
+        text2: 'Tente novamente.',
+        visibilityTime: 4000,
+        autoHide: true,
+      });
     } finally {
       setIsLoading(false);
     }
