@@ -2,6 +2,11 @@
 
 Application developed for the Compasso UOL technical challenge for Mobile Software Engineer. The project consists of an app that fetchs Pokemons using the PokeAPI and the user can visualize, search and check details about any Pokemon.
 
+![](https://i.imgur.com/wl1LmYj.png)
+![](https://i.imgur.com/00x1ABn.png)
+![](https://i.imgur.com/DqTOSY4.png)
+![](https://i.imgur.com/paSAwPO.png)
+
 ## User Stories
 - [X] I, as an user, want to see a list of Pokemons when I use the App.
 - [X] I, as an user, want to check details about a Pokemon when I click on it.
