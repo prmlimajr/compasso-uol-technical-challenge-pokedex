@@ -24,3 +24,18 @@ export const ListContainer = styled.View`
   margin-top: 20;
   flex: 1;
 `;
+
+export const NavigationButtons = styled.View`
+  height: 70px;
+  background-color: #fff;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const PreviousPage = styled.View`
+  border-radius: 100px;
+`;
+
+export const NextPage = styled.View``;
