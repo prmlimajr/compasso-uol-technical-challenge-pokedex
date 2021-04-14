@@ -19,3 +19,8 @@ export const Title = styled.Text`
 export const HeaderText = styled.Text`
   font-size: 16px;
 `;
+
+export const ListContainer = styled.View`
+  margin-top: 20;
+  flex: 1;
+`;

@@ -1,8 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, SafeAreaView, FlatList} from 'react-native';
+import {View, Text, Image, SafeAreaView, FlatList, Alert} from 'react-native';
 import api from '../../services/api';
 import Searchbar from '../../components/Searchbar';
-import {Container, TitleAndHeaderText, Title, HeaderText} from './styles';
+import PokemonCard from '../../components/PokemonCard';
+import {
+  Container,
+  TitleAndHeaderText,
+  Title,
+  HeaderText,
+  ListContainer,
+} from './styles';
 
 interface Result {
   name: string;
@@ -17,32 +24,36 @@ interface PokemonListProps {
 interface PokemonProps {
   name: string;
   url: string;
-  image: `https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png`;
+  image: string;
 }
 
 export default function Home() {
   const [pokemonList, setPokemonList] = useState<PokemonProps[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    try {
+      setIsLoading(true);
+      getPokemons();
+    } catch (err) {
+      Alert.alert('Falha na requisição. :(');
+    } finally {
+      setIsLoading(false);
+    }
+
     async function getPokemons() {
       const response = await api.get('/');
 
-      setPokemonList(response.data.results);
+      const pokemons = response.data.results.map(pokemon => {
+        return {
+          name: pokemon.name,
+          url: pokemon.url,
+        };
+      });
+
+      setPokemonList(pokemons);
     }
-
-    getPokemons();
   }, []);
-
-  function PokemonCard(item: PokemonProps) {
-    const {name, url} = item;
-
-    return (
-      <View>
-        {/* <Image /> */}
-        <Text>{name}</Text>
-      </View>
-    );
-  }
 
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
@@ -54,18 +65,17 @@ export default function Home() {
 
         <Searchbar />
 
-        <FlatList
-          data={pokemonList}
-          keyExtractor={pokemon => pokemon.name}
-          renderItem={({item}) => {
-            return (
-              <View>
-                {/* <Image /> */}
-                <Text>{item.name}</Text>
-              </View>
-            );
-          }}
-        />
+        <ListContainer>
+          <FlatList
+            data={pokemonList}
+            keyExtractor={pokemon => pokemon.name}
+            renderItem={({item}) => {
+              return (
+                <PokemonCard name={item.name.toUpperCase()} url={item.url} />
+              );
+            }}
+          />
+        </ListContainer>
       </Container>
     </SafeAreaView>
   );
