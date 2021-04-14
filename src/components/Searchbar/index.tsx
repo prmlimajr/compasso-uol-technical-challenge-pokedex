@@ -48,6 +48,7 @@ export default function Searchbar() {
       });
     } finally {
       setIsLoading(false);
+      setSearch('');
     }
   };
 
