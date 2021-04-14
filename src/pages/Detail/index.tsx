@@ -22,7 +22,7 @@ import {
   StatView,
   StatName,
 } from './styles';
-import {getPokemonImage, padToThree} from '../../utils';
+import {padToThree} from '../../utils';
 import {
   FlatList,
   ScrollView,
@@ -38,6 +38,11 @@ interface Pokemon {
   sprites: {
     back_default: string;
     front_default: string;
+    other: {
+      ['official-artwork']: {
+        front_default: string;
+      };
+    };
   };
   types: Array<TypesProps>;
 }
@@ -107,12 +112,16 @@ export default function Detail({name, url}: Pokemon) {
               <TouchableOpacity onPress={() => navigation.goBack()}>
                 <Icon name="arrow-left" size={24} color="#000" />
               </TouchableOpacity>
-              <PokemonName>{routeParams.name}</PokemonName>
+              <PokemonName>{routeParams.name.toUpperCase()}</PokemonName>
             </Header>
             <PokemonID>#{padToThree(pokemon.id)}</PokemonID>
 
             <PokemonImagesView>
-              <PokemonImage source={getPokemonImage(routeParams.url)} />
+              <PokemonImage
+                source={{
+                  uri: pokemon.sprites.other['official-artwork'].front_default,
+                }}
+              />
 
               <PokemonIngameView>
                 {pokemon.sprites ? (
