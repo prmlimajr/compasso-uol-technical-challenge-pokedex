@@ -38,9 +38,11 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [nextPage, setNextPage] = useState('');
   const [previousPage, setPreviousPage] = useState('');
+  const [offset, setOffset] = useState<number>(0);
 
   useEffect(() => {
     try {
+      console.log('fetch');
       setIsLoading(true);
       getPokemons();
     } catch (err) {
@@ -50,7 +52,9 @@ export default function Home() {
     }
 
     async function getPokemons() {
-      const response = await api.get('/');
+      const response = await api.get(
+        offset ? `/?offset=${offset}&limit=20` : '/',
+      );
 
       setNextPage(response.data.next);
       setPreviousPage(response.data.previous);
@@ -58,41 +62,25 @@ export default function Home() {
       const pokemons = response.data.results;
       setPokemonList(pokemons);
     }
-  }, []);
+  }, [offset]);
 
   const handlePreviousPage = async () => {
-    try {
-      setIsLoading(true);
-
-      if (!previousPage) {
-        return;
-      }
-
-      const data = await fetch(previousPage);
-      const response = await data.json();
-
-      console.log(response);
-    } catch (err) {
-      Alert.alert('Falha na requisição! :(');
-    } finally {
-      setIsLoading(false);
+    if (!previousPage) {
+      return;
     }
+
+    setOffset(offset => offset - 20);
   };
 
   const handleNextPage = async () => {
-    try {
-      setIsLoading(true);
-
-      if (!nextPage) {
-        return;
-      }
-    } catch (err) {
-      Alert.alert('Falha na requisição! :(');
-    } finally {
-      setIsLoading(false);
+    if (!nextPage) {
+      return;
     }
+
+    setOffset(offset => offset + 20);
   };
 
+  console.log(offset);
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
       {isLoading && <Loader />}
@@ -108,7 +96,6 @@ export default function Home() {
           <FlatList
             data={pokemonList}
             keyExtractor={pokemon => pokemon.name}
-            // onEndReached={loadNextPage}
             renderItem={({item}) => {
               return (
                 <PokemonCard name={item.name.toUpperCase()} url={item.url} />
