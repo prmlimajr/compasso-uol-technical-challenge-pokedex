@@ -6,6 +6,10 @@ export const Container = styled.View`
   background-color: #fff;
 `;
 
+export const TitleAndHeaderText = styled.View`
+  margin-bottom: 20px;
+`;
+
 export const Title = styled.Text`
   font-size: 36px;
   font-weight: bold;
