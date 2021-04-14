@@ -87,7 +87,7 @@ export default function Detail({name, url}: Pokemon) {
     }
   }
 
-  console.log(pokemon);
+  console.log(routeParams);
 
   return (
     pokemon.hasOwnProperty('id') && (
